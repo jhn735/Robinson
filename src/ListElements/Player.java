@@ -23,13 +23,13 @@ public class Player implements JsonList.ListElement{
         this.id = id;
         this.name = name;
     }
-    public String getName(){return name;}
+    public String name(){return name;}
     public int getSid(){return this.student_id;}
     
-    public int getId(){ return id;}
+    public int id(){ return id;}
     public void setId(int id){ this.id = id;}
     
-    public double getRank(){ return rank;}
+    public double rank(){ return rank;}
     public void setRank(double rank){this.rank = rank;}
     public void addToRank(double points){ this.rank += points;}
     
@@ -37,8 +37,8 @@ public class Player implements JsonList.ListElement{
     public static class ById implements Comparator<Player>{
         @Override
         public int compare(Player o1, Player o2) {
-            double p1Id = o1.getId();
-            double p2Id = o2.getId();
+            double p1Id = o1.id();
+            double p2Id = o2.id();
             if(p1Id > p2Id)
                 return 1;
             else
@@ -52,8 +52,8 @@ public class Player implements JsonList.ListElement{
     public static class ByRank implements Comparator<Player>{
         @Override
         public int compare(Player o1, Player o2) {
-            double p1Rank = o1.getRank();
-            double p2Rank = o2.getRank();
+            double p1Rank = o1.rank();
+            double p2Rank = o2.rank();
             if(p1Rank < p2Rank)
                 return 1;
             else 

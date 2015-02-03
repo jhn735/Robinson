@@ -19,17 +19,23 @@ public class Debug_Player {
             Player p = new Player(10-i, "Player#"+Integer.toString(10-i));
             p.setRank((double)(i));
             pList.add(p);
-        }
+        } 
+        /*test the sorting of players by rank
         Debug_Player.printPlayerList(pList);
-    /*test the sorting of players by rank*/
+
         pList.sort(new Player.ById());
         System.out.println();
-        Debug_Player.printPlayerList(pList);
+        Debug_Player.printPlayerList(pList);//*/
+        
+        /*test out the toJSONObject*/
+        for(Player p: pList)
+            System.out.println(p.toJSONObject());
+        //*/
     }
     
     public static void printPlayerList(ArrayList<Player> l){
         for(Player p:l){
-        System.out.println(p.getName()+":"+p.getRank());
+        System.out.println(p.name()+":"+p.rank());
         }
     }
 }

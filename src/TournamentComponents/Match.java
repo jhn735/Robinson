@@ -4,7 +4,6 @@ import ListElements.Player;
 import org.json.simple.JSONObject;
 
 public class Match {
-
     public static enum Winner {
         WHITE("White"), BLACK("Black"), TIE("Tie"), NONE("Ongoing");
         public final String string;
@@ -54,11 +53,11 @@ public class Match {
         JSONObject retVal = new JSONObject();
             retVal.put("Winner", winner.string);  
         JSONObject WPlayer = new JSONObject();
-            WPlayer.put(White.getName(), White.getRank());            
-            retVal.put("White", White.getName());
+            WPlayer.put(White.name(), White.rank());            
+            retVal.put("White", White.name());
         JSONObject BPlayer = new JSONObject();
-            BPlayer.put(Black.getName(), Black.getRank());
-            retVal.put("Black", Black.getName());
+            BPlayer.put(Black.name(), Black.rank());
+            retVal.put("Black", Black.name());
             
     return retVal;
     }

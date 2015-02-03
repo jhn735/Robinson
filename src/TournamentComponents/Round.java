@@ -15,7 +15,7 @@ public class Round {
 
     //an arrayList of arrayLists of players each bins
     private ArrayList<ArrayList<TPlayer>> playerBins;
-    public ArrayList<ArrayList<TPlayer>> getPlayerBins(){ return playerBins;}
+    public ArrayList<ArrayList<TPlayer>> playerBins(){ return playerBins;}
     
     private ArrayList<Match> matchList = new ArrayList<>();
     
@@ -33,7 +33,7 @@ public class Round {
         
         //put the players in their appropriate bin
         for (Player p : playerList) 
-            (playerBins.get((int)p.getRank()*2)).add((TPlayer) p);
+            (playerBins.get((int)p.rank()*2)).add((TPlayer) p);
         
         //sort the bins by id
         for (ArrayList<TPlayer> pl : playerBins) 
@@ -68,7 +68,7 @@ public class Round {
         return playerBins.get((int)(binNum*2));
     }
     
-    public JSONObject getBinInfo(){
+    public JSONObject binInfo(){
         JSONObject retVal = new JSONObject();
         double i = 0.0;
         for(ArrayList<TPlayer> curBin:playerBins){
@@ -76,7 +76,7 @@ public class Round {
             JSONArray names = new JSONArray(); 
             for(TPlayer curPlayer:curBin){
                 JSONObject nameRank = new JSONObject();
-                    nameRank.put(curPlayer.getName(), curPlayer.getRank());
+                    nameRank.put(curPlayer.name(), curPlayer.rank());
                 names.add(nameRank);
             }
             retVal.put("bin_"+Double.toString(i), names);

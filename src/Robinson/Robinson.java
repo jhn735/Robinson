@@ -25,8 +25,4 @@ public class Robinson {
     public static void main(String[] args) {
 
     }
-    public void addPlayer(int student_id, String name){
-        playerList.add(new Player(student_id, name));
-    }
-    
 }

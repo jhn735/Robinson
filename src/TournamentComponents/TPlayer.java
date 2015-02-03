@@ -16,7 +16,7 @@ public class TPlayer extends Player{
     public double talliedOpponentsRanks(){
         double retVal = 0.0;
         for(TPlayer player:opponentList)
-            retVal+= player.getRank();
+            retVal+= player.rank();
     return retVal;
     }
     //checking whether the player has played too many games as one

@@ -43,10 +43,10 @@ public class Tournament{
     
     //return a list of player ordered based on their rankings
         //all ties are broken
-    public ArrayList<Player> getRankedPlayerList(){
+    public ArrayList<Player> rankedPlayerList(){
         ArrayList<Player> retVal;
         //foreach bin in the round
-        for(ArrayList<TPlayer> bin:this.currentRound().getPlayerBins()){
+        for(ArrayList<TPlayer> bin:this.currentRound().playerBins()){
             //sort that bin by their opponents scores
             bin.sort(new TPlayer.byOpponentScores());
             //and add the players to the list in order.
