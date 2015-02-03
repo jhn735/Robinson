@@ -9,16 +9,14 @@ import java.util.Comparator;
  * @author jhn73_000
  */
 public class TPlayer extends Player{
-    private ArrayList<TPlayer> opponentList = new ArrayList<>();
-    public ArrayList<TPlayer> getOpponentList(){return opponentList;}
-    
-    //tally all the opponents ranks and return it
-    public double talliedOpponentsRanks(){
-        double retVal = 0.0;
-        for(TPlayer player:opponentList)
-            retVal+= player.rank();
-    return retVal;
+    public TPlayer(){}
+    public TPlayer(int sid, String name){
+        super(sid, name);
     }
+    
+    private ArrayList<TPlayer> opponentList = new ArrayList<>();
+    public ArrayList<TPlayer> opponentList(){return opponentList;}
+    
     //checking whether the player has played too many games as one
     //side in a row is handled by this fsm
     public static enum Side{
@@ -39,8 +37,8 @@ public class TPlayer extends Player{
         }
     }
     
-    private SideState CurrentSideState;
-    public SideState getCurrentSideState(){return CurrentSideState;}
+    private SideState CurrentSideState = SideState.NONE;
+    public SideState sideState(){return CurrentSideState;}
         
         //updates the CurrentSideState 
         //state change table
@@ -49,8 +47,9 @@ public class TPlayer extends Player{
             WHITE/BLACK   WHITE/BLACK_ONCE    WHITE/BLACK_TWICE
             BLACK         WHITE_ONCE/TWICE    BLACK_ONCE
             WHITE         BLACK_ONCE/TWICE    WHITE_ONCE
+            NEITHER             ANY           NONE
         */
-    private void updateCurrentSideState(Side side){
+    public void updateSideState(Side side){
         switch(side){
            case WHITE:
                 if(CurrentSideState.side == Side.WHITE)
@@ -64,6 +63,8 @@ public class TPlayer extends Player{
                 else
                     CurrentSideState = SideState.BLACK_ONCE;
                 break;
+            case NEITHER:
+                CurrentSideState = SideState.NONE;
                 default:
                 break;
         }  
@@ -71,7 +72,7 @@ public class TPlayer extends Player{
 
     //returns true if match was set, false if not.
     private boolean MakeMatch(Side side, TPlayer Opponent){
-        updateCurrentSideState(side);
+        updateSideState(side);
         //add the opponent to the list of opponents
         opponentList.add(Opponent);        
     return true;
@@ -85,8 +86,8 @@ public class TPlayer extends Player{
         if(player1.getOpponentList().contains(player2)) return false;
              
         //check the side state of each player
-        SideState p1SideState = player1.getCurrentSideState();
-        SideState p2SideState = player2.getCurrentSideState();
+        SideState p1SideState = player1.sideState();
+        SideState p2SideState = player2.sideState();
              
         //if the states are of opposite sides setup a game with eachothers
         //previous side
@@ -124,7 +125,15 @@ public class TPlayer extends Player{
                  
     return true;
     }
-      
+    
+//tally all the opponents ranks and return it
+    public double talliedOpponentsRanks(){
+        double retVal = 0.0;
+        for(TPlayer player:opponentList)
+            retVal+= player.rank();
+    return retVal;
+    }
+
     //Sorts players by the scores of their opponents combined. High to Low.
     public static class byOpponentScores implements Comparator<TPlayer>{
         @Override

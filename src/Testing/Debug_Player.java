@@ -29,7 +29,7 @@ public class Debug_Player {
         System.out.println();
         Debug_Player.printPlayerList(pList);//*/
         
-        /*test out the fromJSONObject*/
+        /*test out the fromJSONObject
         for(int i = 0; i < 10; i++){
             JSONObject nPlayer = new JSONObject();
             nPlayer.put("sid", i);
@@ -40,7 +40,7 @@ public class Debug_Player {
             p.fromJSONObject(nPlayer);
             pList.add(p);
         }
-        /*test out the toJSONObject*/
+        /*test out the toJSONObject
         for(Player p: pList)
             System.out.println((p.toJSONObject()).toJSONString());
         //*/
