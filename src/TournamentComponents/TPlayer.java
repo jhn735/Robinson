@@ -36,13 +36,13 @@ public class TPlayer extends Player{
             this.value = value;
         }
     }
-    
+    public void setSideState(SideState s){ CurrentSideState = s;}
     private SideState CurrentSideState = SideState.NONE;
     public SideState sideState(){return CurrentSideState;}
         
         //updates the CurrentSideState 
         //state change table
-        /*  SIDE          CURRENTSIDESTATE    RESULT
+         /*  SIDE          CURRENTSIDESTATE    RESULT
             ****          ****************    ******
             WHITE/BLACK   WHITE/BLACK_ONCE    WHITE/BLACK_TWICE
             BLACK         WHITE_ONCE/TWICE    BLACK_ONCE
@@ -83,12 +83,19 @@ public class TPlayer extends Player{
         //a player can't play against itself
         if(player1 == player2) return false;
         //if these players have played together return false
-        if(player1.getOpponentList().contains(player2)) return false;
+        if(player1.opponentList().contains(player2)) return false;
              
         //check the side state of each player
         SideState p1SideState = player1.sideState();
         SideState p2SideState = player2.sideState();
-             
+        
+        //if the that states are none then set p1 to black and p2 to white
+        if(p1SideState == SideState.NONE) 
+            p1SideState = SideState.BLACK_ONCE;
+        
+        if(p2SideState == SideState.NONE)
+            p2SideState = SideState.WHITE_ONCE;
+        
         //if the states are of opposite sides setup a game with eachothers
         //previous side
         if(p1SideState.side != p2SideState.side){
@@ -106,24 +113,29 @@ public class TPlayer extends Player{
                  
             Side p1newSide = p1SideState.side;
             Side p2newSide = p2SideState.side;
-             //if the values are the same, give up you're screwed
-            if(p1Value == p2Value) return false;
-            //if p1 played more games as one side, set it the opposite
-                //otherwise do the same to p2
-            if(p1Value > p2Value){
-                p1newSide = (p2newSide != Side.WHITE)?Side.WHITE:Side.BLACK;
-                //p2newSide does not change
-            }else{      
-                p2newSide = (p1newSide != Side.WHITE)?Side.WHITE:Side.BLACK;
-                //p1newSide does not change
+             //if the values are the same and at 2, give up you're screwed
+        if(p1Value == p2Value){ 
+            if(p1Value == 2) return false;
+            else{
+                p1newSide = Side.WHITE; 
+                p2newSide = Side.BLACK;
             }
+        }else{ if(p1Value > p2Value){//if p1 played more games as one side, 
+            //set it the opposite
+            p1newSide = 
+                (p2newSide != Side.WHITE)?Side.WHITE:Side.BLACK;
+            }else{//otherwise do the same to p2   
+            p2newSide = 
+                (p1newSide != Side.WHITE)?Side.WHITE:Side.BLACK;
+            }
+        }    
             player1.MakeMatch(p1newSide, player2);
             player2.MakeMatch(p2newSide, player1);
             //matchmaking was a success
             return true;
         }
                  
-    return true;
+    return false;
     }
     
 //tally all the opponents ranks and return it

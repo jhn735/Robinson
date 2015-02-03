@@ -18,6 +18,7 @@ public class Debug_TPlayer extends Debug_Player{
     private static int limit = 10;
      public static void main(String[] args){
          testSideStateMethods();
+         testMatchMaking();
      System.out.println("All tests successful");
      }
      
@@ -46,11 +47,40 @@ public class Debug_TPlayer extends Debug_Player{
          
          p.updateSideState(TPlayer.Side.WHITE);
          assert(p.sideState() == TPlayer.SideState.WHITE_TWICE);
+         //add more tests here.
          System.out.println("SideState tests successful");
      }
      
      private static void testMatchMaking(){
-         TPlayer p = new TPlayer(123, )
+         TPlayer p = new TPlayer(123, "TestPlayer");
+         TPlayer o = new TPlayer(124, "TestPlayer2");
+         //"make match is trivial so no need to test" says this idiot
+         
+         //test opposites
+         p.setSideState(TPlayer.SideState.BLACK_ONCE);
+         o.setSideState(TPlayer.SideState.WHITE_ONCE);
+         assert(TPlayer.MakeMatch(p,o));
+         
+         //test the completion when both are of value 1
+         p.setSideState(TPlayer.SideState.BLACK_ONCE);
+         o.setSideState(TPlayer.SideState.BLACK_ONCE);
+         assert(TPlayer.MakeMatch(p, o));
+         
+         //test to see incompletion when both are of value 2
+         p.setSideState(TPlayer.SideState.BLACK_TWICE);
+         o.setSideState(TPlayer.SideState.BLACK_TWICE);
+         assert(!TPlayer.MakeMatch(p, o));
+         
+         //test completion when only the values differ
+         p.setSideState(TPlayer.SideState.BLACK_ONCE);
+         o.setSideState(TPlayer.SideState.BLACK_TWICE);
+         assert(TPlayer.MakeMatch(p, o) 
+                 && o.sideState() == TPlayer.SideState.WHITE_ONCE);
+         //test completion of when both are NONE
+         p.setSideState(TPlayer.SideState.NONE);
+         o.setSideState(TPlayer.SideState.NONE);
+         assert(TPlayer.MakeMatch(p,o));
+         
      System.out.println("Match making tests successful");
      }
 }
