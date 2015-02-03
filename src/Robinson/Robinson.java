@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cht;
+package Robinson;
 
 import ListElements.*;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author jhn73_000
  */
-public class ChT {
+public class Robinson {
     private static String Location = "UCMerced";
     private static Date date = new Date();
     private static int tournamentId = 0; 
