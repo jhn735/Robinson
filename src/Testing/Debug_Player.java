@@ -3,6 +3,7 @@ package Testing;
 
 import ListElements.Player;
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.List;
 import org.json.simple.JSONObject;
 
@@ -13,7 +14,6 @@ import org.json.simple.JSONObject;
 public class Debug_Player {
         public static ArrayList<Player> pList = new ArrayList<>();
     public static void main(String[] args){
-    
         /*//set up list of players
         for(int i = 0; i < 10; i++){
             System.out.println(i);
@@ -45,10 +45,11 @@ public class Debug_Player {
             System.out.println((p.toJSONObject()).toJSONString());
         //*/
         
-    }
+    }   
     
-    public static void printPlayerList(ArrayList<Player> l){
-        for(Player p:l){
+    public static void printPlayerList(List l){
+        for(Object current:l){
+            Player p = (Player)current;
         System.out.println(p.name()+":"+p.rank());
         }
     }

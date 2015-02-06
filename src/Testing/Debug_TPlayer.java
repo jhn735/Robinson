@@ -17,8 +17,9 @@ public class Debug_TPlayer extends Debug_Player{
     private static ArrayList<TPlayer> tPList = new ArrayList<>();
     private static int limit = 10;
      public static void main(String[] args){
-         testSideStateMethods();
-         testMatchMaking();
+         //testSideStateMethods();
+         //testMatchMaking();
+         testOpponentMethods();
      System.out.println("All tests successful");
      }
      
@@ -82,5 +83,37 @@ public class Debug_TPlayer extends Debug_Player{
          assert(TPlayer.MakeMatch(p,o));
          
      System.out.println("Match making tests successful");
+     }
+     
+     private static void testOpponentMethods(){
+         //start by testing talliedOpponentsRanks
+         TPlayer testPlayer = new TPlayer(123, "Test_Player");
+         testPlayer.setRank(10.0);
+         //init tPList
+         for(int i = 0; i < 10; i++){
+             TPlayer p = new TPlayer(i, "Player#"+Integer.toString(i));
+             p.setRank(5.5+i);
+             tPList.add(p);
+             testPlayer.addOpponent(p);
+         }                 
+
+         double p = testPlayer.talliedOpponentsRanks();
+         //should come out to 100
+         assert(p == 100);
+         
+         //now test the byOpponentsScores comparator
+         int count = 0;
+
+         //for each player in PList add in a variable amount of opponents
+         for(TPlayer currentPlayer:tPList){
+             for(int i = 0; i < count; i++){
+                 currentPlayer.addOpponent(tPList.get(i));
+             }
+             count++;
+         }
+         //by this, Player#1 should be at the bottom of the list
+         tPList.sort(new TPlayer.byOpponentScores());
+         printPlayerList(tPList);
+         System.out.println("Opponents methods tests successful");
      }
 }

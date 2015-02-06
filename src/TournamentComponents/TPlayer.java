@@ -15,6 +15,7 @@ public class TPlayer extends Player{
     }
     
     private ArrayList<TPlayer> opponentList = new ArrayList<>();
+    public void addOpponent(TPlayer p){ opponentList.add(p);}
     public ArrayList<TPlayer> opponentList(){return opponentList;}
     
     //checking whether the player has played too many games as one
@@ -36,6 +37,7 @@ public class TPlayer extends Player{
             this.value = value;
         }
     }
+    //get rid of this setter later
     public void setSideState(SideState s){ CurrentSideState = s;}
     private SideState CurrentSideState = SideState.NONE;
     public SideState sideState(){return CurrentSideState;}
@@ -152,10 +154,10 @@ public class TPlayer extends Player{
         public int compare(TPlayer o1, TPlayer o2) {
             double p1tORank = o1.talliedOpponentsRanks();
             double p2tORank = o2.talliedOpponentsRanks();
-            if(p1tORank > p2tORank)
+            if(p1tORank < p2tORank)
                 return 1;
             else 
-                if(p1tORank < p2tORank)
+                if(p1tORank > p2tORank)
                     return -1;
             
         return 0;
