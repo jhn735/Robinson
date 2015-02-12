@@ -10,6 +10,11 @@ import java.util.Comparator;
  */
 public class TPlayer extends Player{
     public TPlayer(){}
+    public TPlayer(Player p){
+        super(p.sid(), p.name());
+        this.rank = p.rank();
+        this.id = p.id();
+    }
     public TPlayer(int sid, String name){
         super(sid, name);
     }

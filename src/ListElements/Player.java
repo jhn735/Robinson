@@ -12,10 +12,10 @@ import org.json.simple.JSONObject;
  * @author jhn73_000
  */
 public class Player implements JsonList.ListElement{
-    private int id;
-    private int student_id;
-    private String name;
-    private double rank;
+    protected int id;
+    protected int student_id;
+    protected String name;
+    protected double rank;
         
     public Player(){}
     public Player(int id, String name){
@@ -24,7 +24,7 @@ public class Player implements JsonList.ListElement{
         this.name = name;
     }
     public String name(){return name;}
-    public int getSid(){return this.student_id;}
+    public int sid(){return this.student_id;}
     
     public int id(){ return id;}
     public void setId(int id){ this.id = id;}

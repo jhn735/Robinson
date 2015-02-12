@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 public class Round {
 
     //an arrayList of arrayLists of players each bins
-    private ArrayList<ArrayList<TPlayer>> playerBins;
+    private ArrayList<ArrayList<TPlayer>> playerBins = new ArrayList<>();
     public ArrayList<ArrayList<TPlayer>> playerBins(){ return playerBins;}
     
     private ArrayList<Match> matchList = new ArrayList<>();
@@ -29,11 +29,11 @@ public class Round {
         Collections.sort(playerList, new Player.ByRank());
         //the scores that are possible includes lose all games
         for (double i = 0; i < roundNum; i += 0.5) 
-            playerBins.add((int)i*2, new ArrayList<TPlayer>());
+            playerBins.add(new ArrayList<>());
         
         //put the players in their appropriate bin
         for (Player p : playerList) 
-            (playerBins.get((int)p.rank()*2)).add((TPlayer) p);
+            (playerBins.get((int)p.rank()*2)).add(new TPlayer(p));
         
         //sort the bins by id
         for (ArrayList<TPlayer> pl : playerBins) 
@@ -45,7 +45,8 @@ public class Round {
         for(int i = 0; i < playerBins.size(); i++){
             ArrayList<TPlayer> curBin = playerBins.get(i);
         //for each player in the bin
-            for(TPlayer curPlayer:curBin){
+            for( int j = 0; j < curBin.size(); j++){
+                TPlayer curPlayer = curBin.get(j);
                 //attempt to make a match with the player halfway through the list
                 int curBinHalfway = curBin.size()/2;
                 boolean matchMade = 
@@ -59,7 +60,6 @@ public class Round {
                         //add that player to the next bin
                     if(curBin.size() == 1)
                         playerBins.get(i+1).add(curPlayer);
-                    
                 }
             }
         }
@@ -79,7 +79,7 @@ public class Round {
                     nameRank.put(curPlayer.name(), curPlayer.rank());
                 names.add(nameRank);
             }
-            retVal.put("bin_"+Double.toString(i), names);
+            retVal.put("Bin_"+Double.toString(i), names);
         i+=0.5;
         }
     return retVal;
