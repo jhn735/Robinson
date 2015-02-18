@@ -54,18 +54,29 @@ public class Round {
                 
                 //attempt to make a match with the player halfway through the list
                 int curBinHalfway = curBin.size()/2;
+                TPlayer halfwayPlayer = curBin.get(curBinHalfway);
                 boolean matchMade = 
-                    TPlayer.MakeMatch(curPlayer, curBin.get(curBinHalfway));
+                    TPlayer.MakeMatch(curPlayer, halfwayPlayer);
                 
                 //if the attempt was a success
                     //remove both players from the list
                 if(matchMade){
                     curBin.remove(curBinHalfway);
+                    curBin.remove(curPlayer);
+                    
+                    //assuming the match was made and the side states updated.
+                    //add the match to the matchList
+                    if(curPlayer.sideState().side == TPlayer.Side.WHITE)
+                        matchList.add(new Match(curPlayer, halfwayPlayer));
+                    else
+                        matchList.add(new Match(halfwayPlayer, curPlayer));
+                    
                 }else{
                     //if there is only one player in the bin
                         //add that player to the next bin
                     if(curBin.size() == 1)
                         bins.get(i+1).add(curPlayer);
+                        curBin.remove(curPlayer);
                 }
             }
         }

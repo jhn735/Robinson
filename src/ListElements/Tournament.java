@@ -39,7 +39,8 @@ public class Tournament{
     }
     
     //get the match list of current round
-    public ArrayList<Match> getMatchList(){return currentRound().getMatchList();}
+        //JSONObject is returned because only tournament should mess directly with the list.
+    public JSONObject getMatchList(){return new JSONObject();}
     
     //return a list of player ordered based on their rankings
         //all ties are broken
