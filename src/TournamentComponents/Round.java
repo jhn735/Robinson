@@ -41,16 +41,22 @@ public class Round {
     }
 
     private void makeMatches(){
-    //for each playerbin
-        for(int i = 0; i < playerBins.size(); i++){
-            ArrayList<TPlayer> curBin = playerBins.get(i);
+        //make a copy of playerBins so that it doesn't fuck with it 
+        ArrayList<ArrayList<TPlayer>> bins = new ArrayList<>();
+        for(ArrayList<TPlayer> curBin:playerBins)
+            bins.add(new ArrayList<>(curBin));
+
+        for(int i = 0; i < bins.size(); i++){
+            ArrayList<TPlayer> curBin = bins.get(i);
         //for each player in the bin
             for( int j = 0; j < curBin.size(); j++){
                 TPlayer curPlayer = curBin.get(j);
+                
                 //attempt to make a match with the player halfway through the list
                 int curBinHalfway = curBin.size()/2;
                 boolean matchMade = 
                     TPlayer.MakeMatch(curPlayer, curBin.get(curBinHalfway));
+                
                 //if the attempt was a success
                     //remove both players from the list
                 if(matchMade){
@@ -59,7 +65,7 @@ public class Round {
                     //if there is only one player in the bin
                         //add that player to the next bin
                     if(curBin.size() == 1)
-                        playerBins.get(i+1).add(curPlayer);
+                        bins.get(i+1).add(curPlayer);
                 }
             }
         }
@@ -70,18 +76,30 @@ public class Round {
     
     public JSONObject binInfo(){
         JSONObject retVal = new JSONObject();
+        JSONArray bins = new JSONArray();
         double i = 0.0;
         for(ArrayList<TPlayer> curBin:playerBins){
+
             //foreach bin list the players by name and rank
             JSONArray names = new JSONArray(); 
+            
+            //create the bin that will hold the array of names
+            JSONObject bin = new JSONObject();
+            
             for(TPlayer curPlayer:curBin){
+                //create an object that holds the name and rank of a player
                 JSONObject nameRank = new JSONObject();
                     nameRank.put(curPlayer.name(), curPlayer.rank());
                 names.add(nameRank);
             }
-            retVal.put("Bin_"+Double.toString(i), names);
+            //give the current bin a name and add it to the array
+            if(!names.isEmpty()){
+                bin.put("Bin_"+Double.toString(i), names);
+                bins.add(bin);    
+            }
         i+=0.5;
         }
+        retVal.put("bins", bins);
     return retVal;
     }
     

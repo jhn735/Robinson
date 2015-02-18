@@ -24,7 +24,7 @@ public class Debug_Round {
         
         private static void testBinInfo(){
             //init the pList
-            int bSize = 5;
+            int bSize = 10;
             for(int i = 0; i < 10; i++){
                 //to allow for bins
                 for(int j = 0; j < bSize; j++){
@@ -39,9 +39,10 @@ public class Debug_Round {
             //create a round and print bin info
             Round r = new Round(11, pList, false);
             JSONObject bininf = r.binInfo();
-            for(double i = 0.0; i < 10; i+=0.5)
+            /*for(double i = 0.0; i < 10; i+=0.5)
                 System.out.println(bininf.get("Bin_"+Double.toString(i)));
-            
+            */
+            System.out.println(bininf.toJSONString());
             System.out.println("BinInfo tested successfully");
         }
 
