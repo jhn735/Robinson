@@ -68,7 +68,7 @@ public class Player implements JsonList.ListElement{
     public void fromJSONObject(JSONObject obj) {
         //if object is compatible
             //set the value of each of the corresponding data entries
-        this.student_id = (int)obj.get("sid");    
+       // this.student_id = (int)obj.get("sid");    
         this.id = (int)obj.get("id");
         this.name = (String)obj.get("name");
         this.rank = (double)obj.get("rank");
@@ -78,7 +78,7 @@ public class Player implements JsonList.ListElement{
     @Override
     public JSONObject toJSONObject() {
        JSONObject retVal = new JSONObject();
-       retVal.put("sid", student_id);
+       //retVal.put("sid", student_id);
        retVal.put("id", id);
        retVal.put("name", name);
        retVal.put("rank", rank);

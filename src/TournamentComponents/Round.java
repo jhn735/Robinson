@@ -90,7 +90,7 @@ public class Round {
         JSONArray bins = new JSONArray();
         double i = 0.0;
         for(ArrayList<TPlayer> curBin:playerBins){
-
+ 
             //foreach bin list the players by name and rank
             JSONArray names = new JSONArray(); 
             
@@ -99,9 +99,7 @@ public class Round {
             
             for(TPlayer curPlayer:curBin){
                 //create an object that holds the name and rank of a player
-                JSONObject nameRank = new JSONObject();
-                    nameRank.put(curPlayer.name(), curPlayer.rank());
-                names.add(nameRank);
+                names.add(curPlayer.toJSONObject());
             }
             //give the current bin a name and add it to the array
             if(!names.isEmpty()){

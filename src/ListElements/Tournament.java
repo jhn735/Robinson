@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import org.json.simple.JSONObject;
 import TournamentComponents.*;
+import org.json.simple.JSONArray;
 
 /**
  *  Handles the loading and organizing of players and games.
@@ -14,6 +15,7 @@ import TournamentComponents.*;
  */
 public class Tournament{
     private ArrayList<Player> playerList;
+    public ArrayList<Player> playerList(){ return playerList;}
     //the rounds of the tournament, round 0 is the playerList
     private ArrayList<Round> roundList = new ArrayList<>();
     public Round currentRound(){ return roundList.get(currentRoundNumber);}
@@ -40,22 +42,33 @@ public class Tournament{
     
     //get the match list of current round
         //JSONObject is returned because only tournament should mess directly with the list.
-    public JSONObject getMatchList(){return new JSONObject();}
+    public JSONObject matchList(){
+    JSONObject retVal = new JSONObject();
+        ArrayList<Match> matchList = currentRound().getMatchList();
+        JSONArray list = new JSONArray();
+        
+        for(Match m:matchList)
+            list.add(m.matchInfo());
+        
+        retVal.put("MatchList", list);
+    return retVal;
+    }
     
     //return a list of player ordered based on their rankings
         //all ties are broken
-    public ArrayList<Player> rankedPlayerList(){
-        ArrayList<Player> retVal;
-        //foreach bin in the round
-        for(ArrayList<TPlayer> bin:this.currentRound().playerBins()){
-            //sort that bin by their opponents scores
+    public JSONObject rankedPlayerList(){
+        JSONObject retVal = new JSONObject();
+        ArrayList<ArrayList<TPlayer>> bins = currentRound().playerBins();
+        
+        JSONArray list = new JSONArray();
+        //for each bin sort it by opponents scores and add each player to the list
+        for(ArrayList<TPlayer> bin:bins){
             bin.sort(new TPlayer.byOpponentScores());
-            //and add the players to the list in order.
+            for(TPlayer curPlayer:bin)
+                list.add(curPlayer.toJSONObject());
         }
-        return this.playerList;
-    }
-    
-    public ArrayList<Player> getPlayerList(){ 
-        return this.playerList;
+        retVal.put("RankedPlayerList", list);
+        
+    return retVal;
     }
 }
