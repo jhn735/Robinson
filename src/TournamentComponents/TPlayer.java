@@ -1,6 +1,6 @@
 package TournamentComponents;
 
-import ListElements.Player;
+import BaseComponents.Player;
 import java.util.ArrayList;
 import java.util.Comparator;
 

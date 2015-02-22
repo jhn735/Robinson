@@ -1,7 +1,7 @@
 package TournamentComponents;
 
-import ListElements.Player;
-import ListElements.Tournament;
+import BaseComponents.Player;
+import BaseComponents.Tournament;
 import java.util.ArrayList;
 import java.util.Collections;
 import TournamentComponents.*;

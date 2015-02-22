@@ -5,7 +5,7 @@
  */
 package Testing;
 
-import ListElements.Player;
+import BaseComponents.Player;
 import TournamentComponents.Round;
 import java.util.ArrayList;
 import org.json.simple.JSONObject;

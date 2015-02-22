@@ -1,8 +1,9 @@
-package ListElements;
+package BaseComponents;
 
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -11,7 +12,7 @@ import org.json.simple.JSONObject;
  * Get names and student id- the only things saved to the roster beforehand
  * @author jhn73_000
  */
-public class Player implements JsonList.ListElement{
+public class Player implements JSONIO.JSONCompatible<Player>{
     protected int id;
     protected int student_id;
     protected String name;
@@ -83,5 +84,17 @@ public class Player implements JsonList.ListElement{
        retVal.put("name", name);
        retVal.put("rank", rank);
        return retVal;
+    }
+    
+    @Override
+    public ArrayList<Player> fromJSONArray(JSONArray arr) {
+        ArrayList<Player> retVal = new ArrayList<>();
+        //for each element make a new player, extract the info from the obj and add it
+        for(Object o:arr){
+            Player p = new Player();
+            p.fromJSONObject((JSONObject)o);
+            retVal.add(p);
+        }
+    return retVal;
     }
 }

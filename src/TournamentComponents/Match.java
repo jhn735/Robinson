@@ -1,6 +1,6 @@
 package TournamentComponents;
 
-import ListElements.Player;
+import BaseComponents.Player;
 import org.json.simple.JSONObject;
 
 public class Match {

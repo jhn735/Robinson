@@ -1,7 +1,7 @@
 
 package Testing;
 
-import ListElements.Player;
+import BaseComponents.Player;
 import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.List;
