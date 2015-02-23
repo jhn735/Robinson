@@ -11,12 +11,10 @@ import java.util.Comparator;
 public class TPlayer extends Player{
     public TPlayer(){}
     public TPlayer(Player p){
-        super(p.sid(), p.name());
-        this.rank = p.rank();
-        this.id = p.id();
+        super(p.id(), p.name(), p.rank());
     }
-    public TPlayer(int sid, String name){
-        super(sid, name);
+    public TPlayer(int id, String name, double rank){
+        super(id, name, rank);
     }
     
     private ArrayList<TPlayer> opponentList = new ArrayList<>();

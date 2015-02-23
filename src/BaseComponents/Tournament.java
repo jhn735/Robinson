@@ -48,7 +48,7 @@ public class Tournament{
         JSONArray list = new JSONArray();
         
         for(Match m:matchList)
-            list.add(m.matchInfo());
+            list.add(m.toJSONObject());
         
         retVal.put("MatchList", list);
     return retVal;

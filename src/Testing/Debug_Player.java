@@ -38,7 +38,7 @@ public class Debug_Player {
             nPlayer.put("rank", (double)(10-i));
             Player p = new Player();
             p.fromJSONObject(nPlayer);
-            pList.add(p);
+            pList.add(p.fromJSONObject);
         }
         /*test out the toJSONObject
         for(Player p: pList)

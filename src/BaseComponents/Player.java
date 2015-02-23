@@ -14,26 +14,27 @@ import org.json.simple.JSONObject;
  */
 public class Player implements JSONIO.JSONCompatible<Player>{
     protected int id;
-    protected int student_id;
+    public int id(){ return id;}
+    
     protected String name;
+    public String name(){return name;}
+    
     protected double rank;
-        
+    public double rank(){ return rank;}    
+        public void setRank(double rank){this.rank = rank;}
+        public void addToRank(double points){ this.rank += points;}
+    
     public Player(){}
-    public Player(int id, String name){
+    public Player(int id, String name, double rank){
         //this.student_id = student_id;
         this.id = id;
         this.name = name;
+        this.rank = rank;
     }
-    public String name(){return name;}
-    public int sid(){return this.student_id;}
-    
-    public int id(){ return id;}
-    public void setId(int id){ this.id = id;}
-    
-    public double rank(){ return rank;}
-    public void setRank(double rank){this.rank = rank;}
-    public void addToRank(double points){ this.rank += points;}
-    
+
+    public Player(JSONObject obj){
+        this.fromJSONObject(obj);
+    }
     //sorts id. Low to High.
     public static class ById implements Comparator<Player>{
         @Override
@@ -67,13 +68,9 @@ public class Player implements JSONIO.JSONCompatible<Player>{
     
     @Override
     public void fromJSONObject(JSONObject obj) {
-        //if object is compatible
-            //set the value of each of the corresponding data entries
-       // this.student_id = (int)obj.get("sid");    
         this.id = (int)obj.get("id");
         this.name = (String)obj.get("name");
         this.rank = (double)obj.get("rank");
-
     }
 
     @Override
