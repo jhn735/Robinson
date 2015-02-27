@@ -16,6 +16,9 @@ public class TPlayer extends Player{
     public TPlayer(int id, String name, double rank){
         super(id, name, rank);
     }
+    public TPlayer(int id, String name){
+        super(id, name);
+    }
     
     private ArrayList<TPlayer> opponentList = new ArrayList<>();
     public void addOpponent(TPlayer p){ opponentList.add(p);}

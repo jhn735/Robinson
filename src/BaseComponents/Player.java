@@ -31,6 +31,9 @@ public class Player implements JSONIO.JSONCompatible<Player>{
         this.name = name;
         this.rank = rank;
     }
+    public Player(int id, String name){
+        this(id, name, 0.0);
+    }
 
     public Player(JSONObject obj){
         this.fromJSONObject(obj);

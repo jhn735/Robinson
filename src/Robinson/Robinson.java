@@ -12,7 +12,7 @@ public class Robinson {
     //        new JsonList<>("./playerList.json");
 
     public static void main(String[] args) {
-        Player p = new Player(123, "player123");
-        System.out.println(p.toJSONObject());
+        //Player p = new Player(123, "player123", 0.0);
+        //System.out.println(p.toJSONObject());
     }
 }
