@@ -28,7 +28,7 @@ public class Debug_Round {
             for(int i = 0; i < 10; i++){
                 //to allow for bins
                 for(int j = 0; j < bSize; j++){
-                    Player p = new Player(i*10+j, "Player#"+Integer.toString(i*10+j));
+                    Player p = new Player(i*10+j, "Player#"+Integer.toString(i*10+j), 10-i);
                     p.setRank(10-i);
                     pList.add(p);
                     

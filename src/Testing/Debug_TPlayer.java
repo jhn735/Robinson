@@ -26,7 +26,7 @@ public class Debug_TPlayer extends Debug_Player{
      private static void testSideStateMethods(){
          
          //create a new player
-         TPlayer p = new TPlayer(123, "TestPlayer");
+         TPlayer p = new TPlayer(123, "TestPlayer", 0);
          //make sure that the side state is as it should
          assert(p.sideState() == TPlayer.SideState.NONE);
          
@@ -53,8 +53,8 @@ public class Debug_TPlayer extends Debug_Player{
      }
      
      private static void testMatchMaking(){
-         TPlayer p = new TPlayer(123, "TestPlayer");
-         TPlayer o = new TPlayer(124, "TestPlayer2");
+         TPlayer p = new TPlayer(123, "TestPlayer", 0.0);
+         TPlayer o = new TPlayer(124, "TestPlayer2", 0.0);
          //"make match is trivial so no need to test" says this idiot
          
          //test opposites
@@ -87,11 +87,11 @@ public class Debug_TPlayer extends Debug_Player{
      
      private static void testOpponentMethods(){
          //start by testing talliedOpponentsRanks
-         TPlayer testPlayer = new TPlayer(123, "Test_Player");
+         TPlayer testPlayer = new TPlayer(123, "Test_Player", 10.0);
          testPlayer.setRank(10.0);
          //init tPList
          for(int i = 0; i < 10; i++){
-             TPlayer p = new TPlayer(i, "Player#"+Integer.toString(i));
+             TPlayer p = new TPlayer(i, "Player#"+Integer.toString(i), 5.5+i);
              p.setRank(5.5+i);
              tPList.add(p);
              testPlayer.addOpponent(p);
