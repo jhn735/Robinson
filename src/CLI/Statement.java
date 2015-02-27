@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
- *
+ * Each statement is of a simple "CMD PARAM_1...PARAM_N" structure.
  * @author jhn73_000
  */
 public class Statement {
-        final statementType type;
+        private statementType type;
+        public statementType type(){return type;}
         
         private ArrayList<String> params = new ArrayList<>();
         
@@ -19,19 +20,19 @@ public class Statement {
             //get the first token as the command
             type = statementType.getStatement(st.nextToken());
             
-            //if the statement is invalid
+            //if the statement is invalid just return, no need to do anything else
             if(type == statementType.INVALID) return;
             
+            //grab all the potential parameters
             while(st.hasMoreTokens()){
                 params.add(st.nextToken());
             }
             
+            //if the parameter amount dosn't match the statement is invalid
+            if(params.size() != type.numArgs) type = statementType.INVALID;
+            
         }
         
-        private int evalStatement(String statement_text){
-
-            return 0;
-        }
     public static enum statementType{
         ADD_PLAYER("addPlayer", 2), DISP_PLAYERS("dispPlayers", 0), 
         SET_MATCH("setMatch", 1), DISP_MATCHES("dispMatches", 0), 
