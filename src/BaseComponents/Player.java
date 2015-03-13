@@ -32,7 +32,7 @@ public class Player implements JSONIO.JSONCompatible<Player>{
         this.rank = rank;
     }
     public Player(int id, String name){
-        this(id, name, 0.0);
+        this(id, name, 0.0); 
     }
 
     public Player(JSONObject obj){

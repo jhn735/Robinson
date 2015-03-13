@@ -29,14 +29,14 @@ public class Statement {
             }
             
             //if the parameter amount dosn't match the statement is invalid
-            if(params.size() != type.numArgs) type = statementType.INVALID;
+            if(params.size() != type.numArgs && type.numArgs >= 0) type = statementType.INVALID;
             
         }
         
     public static enum statementType{
         ADD_PLAYER("addPlayer", 2), DISP_PLAYERS("dispPlayers", 0), 
         SET_MATCH("setMatch", 1), DISP_MATCHES("dispMatches", 0), 
-        START_TOURNAMENT("startTournament", 0), INVALID("", 0);
+        START_TOURNAMENT("startTournament", 0), QUIT("quit", -1), INVALID("", -1);
         
         public final String cmd;
         public final int numArgs;

@@ -16,6 +16,7 @@ import org.json.simple.JSONArray;
 public class Tournament{
     private ArrayList<Player> playerList;
     public ArrayList<Player> playerList(){ return playerList;}
+    public void newPlayer(String name, int id){playerList.add(new Player(id, name));}
     //the rounds of the tournament, round 0 is the playerList
     private ArrayList<Round> roundList = new ArrayList<>();
     public Round currentRound(){ return roundList.get(currentRoundNumber);}
@@ -23,14 +24,27 @@ public class Tournament{
     private int currentRoundNumber = 0;
     private int numRounds;
     
+    private boolean ongoing = false;
+    
     public Tournament(ArrayList<Player> playerList, int numRounds){
         this.playerList = playerList;
         this.numRounds = numRounds++;
         //start the zeroth round and make matches.
         roundList.add(new Round(currentRoundNumber, playerList, false));
+        ongoing = true;
+    }
+    
+    public Tournament(int numRounds){
+       this.numRounds = numRounds++;
+    }
+    
+    public void startTournament(){
+       roundList.add(new Round(currentRoundNumber, playerList, false));
+       ongoing = true;
     }
     
     public boolean StartNextRound(){
+        if(!ongoing) return false;
         currentRoundNumber++;
         if(currentRoundNumber >= numRounds) return false;
         Round currentRound = 
@@ -44,6 +58,8 @@ public class Tournament{
         //JSONObject is returned because only tournament should mess directly with the list.
     public JSONObject matchList(){
     JSONObject retVal = new JSONObject();
+        if(!ongoing) return retVal;
+        
         ArrayList<Match> matchList = currentRound().getMatchList();
         JSONArray list = new JSONArray();
         
